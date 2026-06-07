@@ -101,3 +101,12 @@ df_moltbook = load_local_moltbook("posts")    # §1.4 셀
 2. Reddit 2026-01-27~04-14 매칭 슬라이스 추출 (RS_/RC_ 2026-Q1).
 3. §1.3 + §1.4 실행 → §2 MBC-20 필터 sanity check (discursive ~37% 확인).
 4. §3 토픽모델링 + §8 요약 실행.
+
+## 라이선스
+
+이 저장소는 **듀얼 라이선스**다.
+
+- **코드** (`notebooks/`, `scripts/`) — [MIT License](LICENSE)
+- **데이터·문서·결과물** (`docs/`, `research/`, `presentation/`) — [CC BY 4.0](LICENSE-DATA)
+
+활용·인용 시 출처를 밝혀 주세요. 단, repo에 포함되지 않은 **원본 Reddit/Moltbook 데이터**(`data/`, gitignore 처리됨)는 각 플랫폼의 이용약관을 따릅니다.
