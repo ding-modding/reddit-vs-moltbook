@@ -1,0 +1,41 @@
+{
+  "id": "oasis_simulator",
+  "name": "OASIS Simulator (arXiv:2411.11581)",
+  "platform": "oasis",
+  "side": "ai_agent",
+  "status": "active_oss",
+  "A_basic": {
+    "data_type": "Python ABM simulator",
+    "license": "Apache 2.0"
+  },
+  "B_access": {
+    "access_method": "pip install (CAMEL framework)",
+    "auth_required": false,
+    "cost": "free"
+  },
+  "C_schema": {
+    "record_format": "SQLite/relational backend (oasis/social_platform/platform.py)",
+    "top_level_fields": [
+      "user",
+      "post",
+      "comment",
+      "follow",
+      "like",
+      "repost",
+      "recsys_trace",
+      "23 action types"
+    ],
+    "scale": "up to 1,000,000 agents",
+    "time_coverage": "configurable sim steps"
+  },
+  "H_dh_usability": {
+    "distant_reading_suitability": 4,
+    "comparability_anchor": "replicates BOTH X and Reddit dynamics — most directly relevant Reddit-comparable simulator"
+  },
+  "I_agent_prov": "configurable LLM backend (open + commercial via CAMEL)",
+  "evidence_urls": [
+    "https://arxiv.org/abs/2411.11581",
+    "https://github.com/camel-ai/oasis",
+    "https://docs.oasis.camel-ai.org/introduction"
+  ]
+}

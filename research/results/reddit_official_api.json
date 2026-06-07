@@ -1,0 +1,65 @@
+{
+  "id": "reddit_official_api",
+  "name": "Reddit Official Data API (PRAW)",
+  "platform": "reddit",
+  "side": "human",
+  "status": "active_restricted",
+  "A_basic": {
+    "data_type": "live REST API",
+    "license": "Reddit Data API Terms — no redistribution, restricted commercial",
+    "last_updated": "ongoing"
+  },
+  "B_access": {
+    "access_method": "OAuth + pre-approved app (2025 Responsible Builder Policy)",
+    "auth_required": true,
+    "rate_limit": "free tier 100 QPM per OAuth client (~60 req/min via PRAW)",
+    "cost": "free tier with caveats; enterprise tier reportedly $thousands/month (undisclosed)"
+  },
+  "C_schema": {
+    "record_format": "JSON",
+    "top_level_fields": [
+      "id",
+      "name",
+      "author",
+      "subreddit",
+      "title",
+      "selftext",
+      "body",
+      "created_utc",
+      "score",
+      "ups",
+      "downs",
+      "num_comments",
+      "permalink",
+      "over_18",
+      "stickied"
+    ],
+    "time_coverage": "live; ~1000-item lookback per listing",
+    "scale": "live (no bulk)"
+  },
+  "D_text": {
+    "languages": "multilingual"
+  },
+  "E_network": {
+    "reply_tree": "via parent_id"
+  },
+  "F_temporal": {
+    "timestamp_granularity": "second",
+    "lifecycle_events": "deletions not visible"
+  },
+  "G_metadata": {
+    "profile_fields": "richer (karma, account age)",
+    "moderation_logs": "limited (mod-only)"
+  },
+  "H_dh_usability": {
+    "distant_reading_suitability": 2,
+    "known_biases": "1000-item listing cap; pre-approval gatekeeping excludes researchers; no historical bulk",
+    "reproducibility": "low — live API drifts"
+  },
+  "I_agent_prov": "N/A",
+  "evidence_urls": [
+    "https://www.reddit.com/dev/api/",
+    "https://replydaddy.com/blog/reddit-api-pre-approval-2025-personal-projects-crackdown",
+    "https://sellbery.com/blog/how-much-does-the-reddit-api-cost-in-2025/"
+  ]
+}

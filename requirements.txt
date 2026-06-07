@@ -1,0 +1,39 @@
+# DH Project — Reddit vs Moltbook 비교 분석
+# 노트북 colab_analysis.ipynb 의 셀 3 설치 목록과 동일 (로컬 실행용)
+# 설치:  pip install -r requirements.txt
+#        python -m spacy download en_core_web_sm
+
+# --- core ---
+numpy
+pandas
+pyarrow
+pyyaml
+requests
+tqdm
+
+# --- data loading ---
+praw                 # Reddit 공식 API (§1.1)
+zstandard            # zst 덤프 스트리밍 (§1.3)
+datasets             # HF Observatory Archive / webis-tldr-17 (§1.2, §1.4)
+
+# --- network (§4) ---
+networkx
+python-louvain
+
+# --- text / linguistic (§3) ---
+spacy
+nltk
+vaderSentiment
+textstat
+sentence-transformers
+bertopic
+
+# --- stats (§8) ---
+scipy
+scikit-learn
+
+# --- viz ---
+matplotlib
+seaborn
+plotly
+altair

@@ -1,0 +1,40 @@
+{
+  "id": "reddit_webis_tldr17",
+  "name": "Webis-TLDR-17",
+  "platform": "reddit",
+  "side": "human",
+  "status": "frozen",
+  "A_basic": {
+    "data_type": "post-summary pairs",
+    "license": "CC-BY-4.0"
+  },
+  "B_access": {
+    "access_method": "HF datasets or webis.de mirror",
+    "auth_required": false,
+    "cost": "free"
+  },
+  "C_schema": {
+    "record_format": "JSON (HF)",
+    "top_level_fields": [
+      "author",
+      "body",
+      "normalizedBody",
+      "content",
+      "summary",
+      "subreddit",
+      "subreddit_id"
+    ],
+    "time_coverage": "2006-2016",
+    "scale": "3,848,330 posts / 18.94GB"
+  },
+  "H_dh_usability": {
+    "distant_reading_suitability": 4,
+    "known_biases": "only posts containing literal 'TL;DR'; author-written summaries are noisy"
+  },
+  "I_agent_prov": "N/A",
+  "evidence_urls": [
+    "https://huggingface.co/datasets/webis/tldr-17",
+    "https://webis.de/data/webis-tldr-17.html",
+    "https://aclanthology.org/W17-4508/"
+  ]
+}

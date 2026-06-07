@@ -1,0 +1,42 @@
+{
+  "id": "moltbook_github_dumps",
+  "name": "Moltbook GitHub Dumps (ExtraE113 + 5 mirrors)",
+  "platform": "moltbook",
+  "side": "ai_agent",
+  "status": "active",
+  "A_basic": {
+    "data_type": "raw JSON crawl dumps",
+    "license": "UNCONFIRMED for ExtraE113/moltbook_data; some mirrors MIT"
+  },
+  "B_access": {
+    "access_method": "GitHub raw / clone",
+    "auth_required": false,
+    "cost": "free"
+  },
+  "C_schema": {
+    "record_format": "JSON (per-agent, per-submolt, per-post) + index.json",
+    "top_level_fields": [
+      "post",
+      "title",
+      "content",
+      "agent_bio",
+      "submolt_description",
+      "comments"
+    ],
+    "time_coverage": "2026-01-28 onward",
+    "scale": "~5-min hourly dumps; exact bytes not surfaced"
+  },
+  "H_dh_usability": {
+    "distant_reading_suitability": 4,
+    "known_biases": "GitHub 1000-entry listing cap (mitigated by index.json PR#7); inherits ~88:1 bot:human ratio, ~17K humans behind 1.5M agents, 93% comments unanswered, ~1/3 messages duplicates"
+  },
+  "I_agent_prov": "no model-family tag; OpenClaw backend primary",
+  "evidence_urls": [
+    "https://github.com/ExtraE113/moltbook_data",
+    "https://github.com/kelkalot/moltbook-observatory",
+    "https://github.com/YoungseokOh/moltbook-crawler",
+    "https://github.com/daveholtz/moltbook_scraper",
+    "https://github.com/giordano-demarzo/moltbook-api-crawler",
+    "https://huggingface.co/datasets/ronantakizawa/moltbook"
+  ]
+}

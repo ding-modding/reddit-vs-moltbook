@@ -1,0 +1,175 @@
+# =====================================================================
+# Field Definitions — Reddit vs Moltbook DH Research
+# Each item in outline.yaml is investigated across these categories.
+# detail_level hierarchy: brief -> moderate -> detailed
+# =====================================================================
+
+categories:
+
+  # -----------------------------------------------------------------
+  - id: A
+    name: basic_info
+    detail_level: brief
+    fields:
+      - name: name
+        description: "Canonical dataset/source name"
+      - name: platform
+        description: "Originating platform (reddit / moltbook / chirper / oasis / socioverse / ...)"
+      - name: data_type
+        description: "Type: live API / static dump / curated corpus / simulator output"
+      - name: source_url
+        description: "Primary access URL (repo, paper, archive)"
+      - name: license
+        description: "License terms (CC-BY, MIT, custom ToS, restricted, ...)"
+      - name: last_updated
+        description: "Most recent release/update date observed"
+
+  # -----------------------------------------------------------------
+  - id: B
+    name: access
+    detail_level: brief
+    fields:
+      - name: access_method
+        description: "How to obtain — API / torrent / direct download / scrape / OAuth"
+      - name: auth_required
+        description: "Account, key, IRB, or special permission required?"
+      - name: rate_limit
+        description: "API/scrape limits if applicable"
+      - name: cost
+        description: "Free / paid / academic-tier"
+      - name: legal_ethics_notes
+        description: "ToS constraints, GDPR/CCPA flags, IRB considerations"
+
+  # -----------------------------------------------------------------
+  - id: C
+    name: schema_and_scale
+    detail_level: moderate
+    fields:
+      - name: record_format
+        description: "JSON / NDJSON / CSV / Parquet / GraphML / ..."
+      - name: total_size
+        description: "Total size on disk and # of files"
+      - name: fields_available
+        description: "List of top-level fields in each record"
+      - name: time_coverage
+        description: "Earliest–latest timestamp covered"
+      - name: n_posts
+        description: "Count of posts/threads"
+      - name: n_comments
+        description: "Count of comments/replies"
+      - name: n_users_or_agents
+        description: "Distinct authors (users for Reddit, agents for Moltbook)"
+      - name: n_communities
+        description: "Subreddits / rooms / topic groups"
+
+  # -----------------------------------------------------------------
+  - id: D
+    name: text_linguistic
+    detail_level: detailed
+    fields:
+      - name: text_fields_present
+        description: "Which fields carry primary text (title, body, comment, ...)"
+      - name: languages
+        description: "Language coverage and detected distribution"
+      - name: avg_post_length
+        description: "Mean / median token or character length"
+      - name: vocabulary_richness_indicators
+        description: "TTR, hapax ratio, etc. — if reported"
+      - name: available_nlp_preprocessing
+        description: "Pre-tokenized? POS tagged? Embeddings included?"
+      - name: code_switching_markers
+        description: "Multilingual mixing, jargon, slang prevalence"
+      - name: emoji_or_markdown_support
+        description: "Emoji, markdown, code blocks, images-as-tokens"
+
+  # -----------------------------------------------------------------
+  - id: E
+    name: network_structural
+    detail_level: detailed
+    fields:
+      - name: reply_tree_structure
+        description: "Threading model (nested replies, flat, broadcast)"
+      - name: user_or_agent_graph
+        description: "Follow / friend / mention / quote graph availability"
+      - name: community_topology
+        description: "Subreddit / room / cluster structure"
+      - name: cross_post_mention_quote_relations
+        description: "Cross-platform or cross-thread references"
+      - name: graph_format
+        description: "Native edge list, GraphML, networkx-ready, or must reconstruct"
+
+  # -----------------------------------------------------------------
+  - id: F
+    name: temporal_behavioral
+    detail_level: detailed
+    fields:
+      - name: timestamp_granularity
+        description: "Second / minute / day"
+      - name: posting_frequency_distribution
+        description: "Per-user/agent rate distribution shape"
+      - name: session_or_burst_detection
+        description: "Are sessions / bursts annotated or reconstructible?"
+      - name: lifecycle_events
+        description: "Account creation, ban, deletion, edit history"
+      - name: engagement_metrics
+        description: "Upvotes, reactions, shares, replies"
+      - name: inference_cadence
+        description: "(AI-side) scheduled cron vs event-driven posting"
+
+  # -----------------------------------------------------------------
+  - id: G
+    name: metadata_ecosystem
+    detail_level: moderate
+    fields:
+      - name: user_or_agent_profile_fields
+        description: "Bio, joined date, karma, agent persona, etc."
+      - name: flair_or_role_tags
+        description: "Subreddit flair, moderator role, agent class tags"
+      - name: community_rules_data
+        description: "Rules / sidebar / wiki content available?"
+      - name: moderation_logs
+        description: "Removal/ban logs, AutoMod traces"
+      - name: bot_or_llm_attribution
+        description: "Explicit bot/LLM labeling, suspected automation rate"
+
+  # -----------------------------------------------------------------
+  - id: H
+    name: dh_research_usability
+    detail_level: moderate
+    fields:
+      - name: prior_dh_or_css_studies
+        description: "Citing or using this dataset (DOI / arXiv list)"
+      - name: distant_reading_suitability
+        description: "1–5 rating for Moretti-style distant reading"
+      - name: known_biases
+        description: "Sampling, demographic, topic, platform-effect biases"
+      - name: representativeness_caveats
+        description: "What population does the data NOT represent?"
+      - name: reproducibility_status
+        description: "Versioned? DOI? Frozen snapshot vs rolling?"
+      - name: synthetic_contamination_rate
+        description: "Crypto-spam / pump-and-dump share (Moltbook=50,926)"
+      - name: comparability_anchor
+        description: "Existence of matched human-or-agent slice for paired analysis"
+
+  # -----------------------------------------------------------------
+  # NEW — essential for human vs AI behavioral comparison
+  - id: I
+    name: agent_specific_provenance
+    detail_level: detailed
+    fields:
+      - name: model_provenance
+        description: "Underlying LLM family/version per agent (GPT-4o, Claude, Llama, ...)"
+      - name: prompt_template_traces
+        description: "Recoverable system prompts / personas?"
+      - name: agent_identity_persistence
+        description: "Memory architecture (vector store, RAG, none); cross-session continuity"
+      - name: human_in_the_loop_ratio
+        description: "Estimated share of human-puppeteered posts (Moltbook contamination)"
+      - name: anthropomorphism_markers
+        description: "First-person rate, emotional disclosures, self-reference frequency"
+      - name: claim_or_authentication_chain
+        description: "Provenance link from on-platform agent to off-platform owner"
+
+# Reserved — auto-filled by /research-deep when fields cannot be resolved
+uncertain: []

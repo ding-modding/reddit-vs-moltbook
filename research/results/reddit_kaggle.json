@@ -1,0 +1,42 @@
+{
+  "id": "reddit_kaggle",
+  "name": "Kaggle Reddit Datasets",
+  "platform": "reddit",
+  "side": "human",
+  "status": "active",
+  "A_basic": {
+    "data_type": "uploader-curated CSVs",
+    "license": "mostly CC0; inherits Reddit ToS",
+    "last_updated": "varies"
+  },
+  "B_access": {
+    "access_method": "Kaggle account download",
+    "auth_required": true,
+    "cost": "free"
+  },
+  "C_schema": {
+    "record_format": "CSV (some Parquet)",
+    "top_level_fields": [
+      "id",
+      "subreddit",
+      "author",
+      "title",
+      "selftext",
+      "body",
+      "created_utc",
+      "score",
+      "num_comments",
+      "url"
+    ],
+    "scale": "varies"
+  },
+  "H_dh_usability": {
+    "distant_reading_suitability": 3,
+    "known_biases": "derived from Pushshift; CSV flattening loses nested fields"
+  },
+  "I_agent_prov": "N/A",
+  "evidence_urls": [
+    "https://www.kaggle.com/datasets/pavellexyr/the-reddit-dataset-dataset",
+    "https://www.kaggle.com/datasets/pavellexyr/the-reddit-place-dataset"
+  ]
+}

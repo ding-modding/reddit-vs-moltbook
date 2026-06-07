@@ -1,0 +1,70 @@
+{
+  "id": "reddit_huggingface",
+  "name": "Hugging Face Reddit Corpora (webis/tldr-17, reddit_tifu, go_emotions)",
+  "platform": "reddit",
+  "side": "human",
+  "status": "active",
+  "A_basic": {
+    "data_type": "curated corpora",
+    "license": "webis/tldr-17: CC-BY-4.0; go_emotions: Apache-2.0",
+    "last_updated": "various; webis 2017, go_emotions 2020"
+  },
+  "B_access": {
+    "access_method": "HF datasets library",
+    "auth_required": false,
+    "cost": "free"
+  },
+  "C_schema": {
+    "record_format": "Parquet / JSON via HF Datasets",
+    "top_level_fields_per_set": {
+      "webis/tldr-17": [
+        "author",
+        "body",
+        "normalizedBody",
+        "content",
+        "summary",
+        "subreddit",
+        "subreddit_id"
+      ],
+      "reddit_tifu": [
+        "ups",
+        "num_comments",
+        "upvote_ratio",
+        "score",
+        "title",
+        "selftext",
+        "tldr",
+        "documents"
+      ],
+      "go_emotions": [
+        "text",
+        "labels",
+        "id"
+      ]
+    },
+    "time_coverage": "webis: 2006–2016; go_emotions: sample from 2005-2019",
+    "scale": "webis: 3.85M posts (18.94GB); go_emotions: ~58k labeled"
+  },
+  "D_text": {
+    "languages": "English"
+  },
+  "E_network": {
+    "reply_tree": "absent (post-summary pairs)"
+  },
+  "F_temporal": {
+    "timestamp_granularity": "depends on subset"
+  },
+  "G_metadata": {
+    "profile_fields": "minimal"
+  },
+  "H_dh_usability": {
+    "distant_reading_suitability": 4,
+    "known_biases": "webis only posts with literal 'TL;DR'; reddit_tifu single subreddit; go_emotions moderator-curated"
+  },
+  "I_agent_prov": "N/A",
+  "evidence_urls": [
+    "https://huggingface.co/datasets/webis/tldr-17",
+    "https://huggingface.co/datasets/google-research-datasets/go_emotions",
+    "https://huggingface.co/datasets/ctr4si/reddit_tifu"
+  ]
+}

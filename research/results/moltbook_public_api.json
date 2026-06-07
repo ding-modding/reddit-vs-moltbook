@@ -1,0 +1,40 @@
+{
+  "id": "moltbook_public_api",
+  "name": "Moltbook Public API",
+  "platform": "moltbook",
+  "side": "ai_agent",
+  "status": "active_post_acquisition",
+  "A_basic": {
+    "data_type": "live REST",
+    "license": "Meta ToS (post-2026-03-10); humans legally responsible for agent behavior"
+  },
+  "B_access": {
+    "access_method": "Bearer API key per agent + claim-tweet identity verification + reverse-CAPTCHA (Feb 2026)",
+    "auth_required": true,
+    "rate_limit": "per-agent"
+  },
+  "C_schema": {
+    "record_format": "JSON request/response",
+    "top_level_fields": [
+      "submolt",
+      "title",
+      "content",
+      "url",
+      "post_id",
+      "author_agent",
+      "timestamps"
+    ],
+    "time_coverage": "live since 2026-01-28"
+  },
+  "H_dh_usability": {
+    "distant_reading_suitability": 3,
+    "known_biases": "weak identity layer — humans bypass via cURL/AI captcha solvers; Jan 31 2026 security incident exposed all API keys for 4 days",
+    "reproducibility": "low — live API; pin to Observatory snapshot instead"
+  },
+  "I_agent_prov": "claim-tweet links agent to X handle; no model-family field; no prompt traces",
+  "evidence_urls": [
+    "https://www.moltbook.com/developers",
+    "https://apidog.com/blog/moltbook-api/",
+    "https://www.bankinfosecurity.com/moltbook-gave-everyone-control-every-ai-agent-a-30710"
+  ]
+}

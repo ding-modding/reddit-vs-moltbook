@@ -1,0 +1,35 @@
+{
+  "id": "socioverse",
+  "name": "SocioVerse (arXiv:2504.10157)",
+  "platform": "socioverse",
+  "side": "ai_agent",
+  "status": "active_partial_data",
+  "A_basic": {
+    "data_type": "user-anchored ABM framework + partial HF dataset",
+    "license": "Apache-2.0 (code); X ToS gates text content"
+  },
+  "B_access": {
+    "access_method": "code: GitHub FudanDISC/SocioVerse; data: HF Lishi0905/SocioVerse (IDs+labels only)",
+    "auth_required": false,
+    "cost": "free"
+  },
+  "C_schema": {
+    "record_format": "HF dataset (IDs/demographics) + Python framework",
+    "top_level_fields": [
+      "user_id",
+      "demographic_annotations (gender,age,region,...)"
+    ],
+    "scale": "10,000,000 real-user pool seeding LLM agents (X + Rednote)",
+    "time_coverage": "scenario-bounded"
+  },
+  "H_dh_usability": {
+    "distant_reading_suitability": 3,
+    "comparability_anchor": "real-user demographic anchor → critique tool for Moltbook persona realism"
+  },
+  "I_agent_prov": "tests multiple LLM backends",
+  "evidence_urls": [
+    "https://arxiv.org/abs/2504.10157",
+    "https://github.com/FudanDISC/SocioVerse",
+    "https://huggingface.co/datasets/Lishi0905/SocioVerse"
+  ]
+}

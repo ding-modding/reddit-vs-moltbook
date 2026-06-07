@@ -1,0 +1,68 @@
+{
+  "id": "reddit_pushshift",
+  "name": "Pushshift Reddit Archive",
+  "platform": "reddit",
+  "side": "human",
+  "status": "deprecated_live_ingestion",
+  "A_basic": {
+    "data_type": "static historical dump",
+    "license": "no formal license; relies on Reddit ToS / academic fair use",
+    "last_updated": "2023-04 (live ingestion ended); legacy mirrors persist"
+  },
+  "B_access": {
+    "access_method": "torrent / mirror (Arctic Shift, Academic Torrents)",
+    "auth_required": false,
+    "cost": "free"
+  },
+  "C_schema": {
+    "record_format": "zstd-compressed NDJSON",
+    "top_level_fields": [
+      "id",
+      "author",
+      "subreddit",
+      "subreddit_id",
+      "created_utc",
+      "title",
+      "selftext",
+      "body",
+      "score",
+      "num_comments",
+      "permalink",
+      "link_id",
+      "parent_id"
+    ],
+    "time_coverage": "2005-06 to 2023-04",
+    "scale": "~600B+ comments + submissions historically"
+  },
+  "D_text": {
+    "languages": "multilingual but English-dominant",
+    "preprocessing": "raw"
+  },
+  "E_network": {
+    "reply_tree": "fully reconstructible via parent_id/link_id",
+    "graph_format": "must reconstruct"
+  },
+  "F_temporal": {
+    "timestamp_granularity": "second (created_utc)",
+    "lifecycle_events": "no edits/deletions captured"
+  },
+  "G_metadata": {
+    "profile_fields": "minimal (author only)",
+    "moderation_logs": "none",
+    "bot_attribution": "none native"
+  },
+  "H_dh_usability": {
+    "distant_reading_suitability": 5,
+    "prior_studies": [
+      "Baumgartner et al. 2020 ICWSM (canonical)",
+      "Pushshift cited in thousands of CSS papers"
+    ],
+    "known_biases": "ingestion gaps 2018 & 2022; missing edits/deletions; private/quarantined subs missing",
+    "reproducibility": "frozen historically; depends on mirror integrity"
+  },
+  "I_agent_prov": "N/A (human platform)",
+  "evidence_urls": [
+    "https://www.emergentmind.com/topics/pushshift-reddit-dataset",
+    "https://aclanthology.org/2020.icwsm-1.62/"
+  ]
+}

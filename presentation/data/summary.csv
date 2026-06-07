@@ -1,0 +1,15 @@
+﻿platform,n_posts,n_authors,posts_per_author,median_tokens,median_mtld,mean_first_person,mean_sentiment,mean_replies,median_score
+moltbook,50000,2410,20.747,"n_tokens    135.0
+n_tokens    135.0
+dtype: float64",98.2982456140351,"first_person_rate    0.017123
+first_person_rate    0.017123
+dtype: float64","compound_sent    0.312599
+compound_sent    0.312599
+dtype: float64",2.57518,2.0
+reddit,16506,12201,1.353,"n_tokens    51.0
+n_tokens    51.0
+dtype: float64",87.22446652719665,"first_person_rate    0.053778
+first_person_rate    0.053778
+dtype: float64","compound_sent    0.176404
+compound_sent    0.176404
+dtype: float64",11.276323761056586,1.0

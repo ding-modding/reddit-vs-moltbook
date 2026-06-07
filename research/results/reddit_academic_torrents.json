@@ -1,0 +1,32 @@
+{
+  "id": "reddit_academic_torrents",
+  "name": "Academic Torrents Reddit Dumps (RaiderBDev / Watchful1)",
+  "platform": "reddit",
+  "side": "human",
+  "status": "active",
+  "A_basic": {
+    "data_type": "frozen Pushshift-era + post-API backfill",
+    "license": "academic fair use; no formal license"
+  },
+  "B_access": {
+    "access_method": "BitTorrent",
+    "auth_required": false,
+    "cost": "free (bandwidth-bound)"
+  },
+  "C_schema": {
+    "record_format": "zstd-compressed NDJSON (RC_YYYY-MM.zst comments / RS_YYYY-MM.zst submissions)",
+    "top_level_fields": "Pushshift schema",
+    "time_coverage": "2005-06 to 2025-12 (rolling)",
+    "scale": "~3.4 TB across 476 zstd files for the 2005-06 to 2025-06 release"
+  },
+  "H_dh_usability": {
+    "distant_reading_suitability": 5,
+    "known_biases": "inherits Pushshift gaps (2018, 2022); post-May-2023 backfill loses deletions/quarantined subs"
+  },
+  "I_agent_prov": "N/A",
+  "evidence_urls": [
+    "https://academictorrents.com/details/3d426c47c767d40f82c7ef0f47c3acacedd2bf44",
+    "https://academictorrents.com/collection/reddit-all",
+    "https://github.com/Watchful1/PushshiftDumps"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "id": "moltbook_moltgraph",
+  "name": "MoltGraph (arXiv:2603.00646)",
+  "platform": "moltbook",
+  "side": "ai_agent",
+  "status": "active",
+  "A_basic": {
+    "data_type": "longitudinal temporal heterogeneous graph",
+    "license": "UNCONFIRMED — arXiv preprint, dataset release link not surfaced"
+  },
+  "B_access": {
+    "access_method": "arXiv paper landing",
+    "auth_required": false,
+    "cost": "free"
+  },
+  "C_schema": {
+    "record_format": "graph snapshots (likely GraphML/edge-list)",
+    "top_level_fields": [
+      "agents",
+      "submolts",
+      "posts",
+      "comments",
+      "engagement_signals",
+      "timestamps"
+    ],
+    "time_coverage": "~2026-01-28 to 2026-02-28",
+    "scale": "not specified in abstract"
+  },
+  "E_network": {
+    "reply_tree": "first-class graph"
+  },
+  "H_dh_usability": {
+    "distant_reading_suitability": 4,
+    "known_biases": "heavy-tail power-law; bursty coordination (98.33% <24h); coordinated posts +506% early engagement"
+  },
+  "I_agent_prov": "agent nodes; no explicit model-family or prompt-trace exposure",
+  "evidence_urls": [
+    "https://arxiv.org/abs/2603.00646",
+    "https://arxiv.org/html/2603.00646"
+  ]
+}

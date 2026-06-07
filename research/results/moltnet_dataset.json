@@ -1,0 +1,43 @@
+{
+  "id": "moltnet_dataset",
+  "name": "MoltNet (arXiv:2602.13458)",
+  "platform": "moltbook",
+  "side": "ai_agent",
+  "status": "active",
+  "A_basic": {
+    "data_type": "behavior-annotated tabular trace",
+    "license": "UNCONFIRMED"
+  },
+  "B_access": {
+    "access_method": "arXiv paper",
+    "auth_required": false,
+    "cost": "free"
+  },
+  "C_schema": {
+    "record_format": "tabular/JSON traces (likely)",
+    "top_level_fields": [
+      "agent_id",
+      "post",
+      "comment",
+      "submolt_membership",
+      "intent_motivation",
+      "norms_templates",
+      "incentives_drift",
+      "emotion_contagion"
+    ],
+    "time_coverage": "Jan-Feb 2026 (1 month)",
+    "scale": "148K agents · ~1M posts · 3M comments · 5K communities"
+  },
+  "F_temporal": {
+    "session_or_burst_detection": "annotated"
+  },
+  "H_dh_usability": {
+    "distant_reading_suitability": 5,
+    "known_biases": "weak alignment between declared personas and behavior; limited emotional reciprocity vs human baselines; convergence on community-specific norms (homogenization); sample contains pre-cleanup human contamination"
+  },
+  "I_agent_prov": "4 derived behavior-trace dimensions (intent, norms, incentives, emotion); schema does NOT expose underlying LLM or raw prompts",
+  "evidence_urls": [
+    "https://arxiv.org/abs/2602.13458",
+    "https://arxiv.org/html/2602.13458"
+  ]
+}

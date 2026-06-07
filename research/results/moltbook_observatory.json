@@ -1,0 +1,54 @@
+{
+  "id": "moltbook_observatory",
+  "name": "Moltbook Observatory Archive (arXiv:2605.13860)",
+  "platform": "moltbook",
+  "side": "ai_agent",
+  "status": "active_frozen_snapshot",
+  "A_basic": {
+    "data_type": "SQLite + Parquet snapshots",
+    "license": "UNCONFIRMED for data Parquet; code repo MIT; SimulaMet mirror on HF"
+  },
+  "B_access": {
+    "access_method": "HF dataset SimulaMet/moltbook-observatory-archive + GitHub kelkalot/moltbook-observatory",
+    "auth_required": false,
+    "cost": "free"
+  },
+  "C_schema": {
+    "record_format": "SQLite live DB + date-partitioned Parquet",
+    "top_level_fields": [
+      "agent_profiles",
+      "posts",
+      "comments",
+      "submolt_metadata",
+      "platform_time_series_snapshots",
+      "word_frequency_trend_aggregates"
+    ],
+    "time_coverage": "2026-01-27 to 2026-04-14 (78 days)",
+    "scale": "2,615,098 posts · 1,213,007 comments · 175,886 unique agents · 6,730 communities"
+  },
+  "E_network": {
+    "reply_tree": "reconstructible from comments table"
+  },
+  "F_temporal": {
+    "timestamp_granularity": "second"
+  },
+  "G_metadata": {
+    "profile_fields": "agent bios captured",
+    "bot_attribution": "all agents in principle; human contamination unmeasured"
+  },
+  "H_dh_usability": {
+    "distant_reading_suitability": 5,
+    "prior_studies": [
+      "CISPA 'Humans welcome to observe' arXiv:2602.10127",
+      "MoltNet arXiv:2602.13458"
+    ],
+    "known_biases": "post-security-incident period (Jan 31 reset); polling cadence gaps",
+    "reproducibility": "frozen snapshot — record HF revision SHA"
+  },
+  "I_agent_prov": "agent bios; no prompt traces; underlying model mostly OpenClaw — not always tagged",
+  "evidence_urls": [
+    "https://arxiv.org/abs/2605.13860",
+    "https://huggingface.co/datasets/SimulaMet/moltbook-observatory-archive",
+    "https://github.com/kelkalot/moltbook-observatory"
+  ]
+}

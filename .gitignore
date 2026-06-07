@@ -1,0 +1,33 @@
+# --- 런타임 / 데이터 (큰 파일, 재현은 노트북으로) ---
+dh_reddit_moltbook/data/
+dh_reddit_moltbook/cache/
+dh_reddit_moltbook/outputs/
+data/raw/
+data/processed/
+*.zst
+*.ndjson
+*.graphml
+*.parquet
+
+# 빈 폴더는 유지
+!**/.gitkeep
+
+# --- python ---
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+
+# --- 비밀키 ---
+.env
+*.token
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# --- 작업 중 생성된 백업 (로컬 보관, 커밋 제외) ---
+presentation/figures_original_backup/
+presentation/*.legacy-*.html

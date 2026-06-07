@@ -1,0 +1,31 @@
+{
+  "id": "reddit_arctic_shift",
+  "name": "Arctic Shift (ArthurHeitmann)",
+  "platform": "reddit",
+  "side": "human",
+  "status": "active",
+  "A_basic": {
+    "data_type": "rolling Pushshift successor",
+    "license": "no formal license; redistribution per Reddit ToS"
+  },
+  "B_access": {
+    "access_method": "torrents + limited public API + web UI (arctic-shift.photon-reddit.com)",
+    "auth_required": false,
+    "rate_limit": "small per-IP quotas via API"
+  },
+  "C_schema": {
+    "record_format": ".zst, .zst_blocks, .jsonl/ndjson",
+    "top_level_fields": "Pushshift-compatible schema",
+    "time_coverage": "2005-06 to present (rolling monthly)",
+    "scale": "multi-TB"
+  },
+  "H_dh_usability": {
+    "distant_reading_suitability": 5,
+    "known_biases": "post-2023 backfill via API loses deletions/private subs"
+  },
+  "I_agent_prov": "N/A",
+  "evidence_urls": [
+    "https://github.com/ArthurHeitmann/arctic_shift",
+    "https://github.com/ArthurHeitmann/arctic_shift/blob/master/download_links.md"
+  ]
+}

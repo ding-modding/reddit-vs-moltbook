@@ -1,0 +1,11 @@
+# 자동 기록 — 데이터 재현용 버전 핀
+pinned_versions:
+  moltbook_observatory_archive:
+    repo: SimulaMet/moltbook-observatory-archive
+    revision: 534b0d57f6aeee754185da7e5bf96ba5c39ea9e2
+    window: 2026-04-01..2026-04-14
+    recorded_at: 2026-06-06T15:33:56.711731+00:00
+  reddit_arctic_shift:
+    api: https://arctic-shift.photon-reddit.com/api
+    window: 2026-04-01..2026-04-14
+    subreddits: [artificial, singularity, LocalLLaMA, offmychest, CasualConversation, CryptoCurrency, ProgrammerHumor]

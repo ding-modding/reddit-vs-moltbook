@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reddit vs Moltbook — Humans &amp; AI Agents</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&family=Hanken+Grotesk:wght@400..700&family=DM+Mono:wght@400;500&family=Noto+Serif+KR:wght@400;500;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#0c0d11;--stage-bg:#070709;--slide-bg:transparent;--ink:#eceff5;--muted:#9aa3b6;
+  --cobalt:#5b8cff;--cobalt-soft:#7ea2ff;--grid:rgba(91,140,255,.09);--faint:rgba(236,239,245,.14);
+  --takeaway-bg:rgba(91,140,255,.08);--molt:#5b8cff;--reddit:#ff8a3d;--row-line:rgba(123,162,255,.45);
+  --font-display:"Newsreader","Noto Serif KR",Georgia,serif;
+  --font-body:"Hanken Grotesk","Noto Sans KR",system-ui,sans-serif;
+  --font-mono:"DM Mono",ui-monospace,"Noto Sans KR",monospace;
+}
+html[data-theme="light"]{
+  --canvas:#f4f1e9;--stage-bg:#e7e2d6;--ink:#14161c;--muted:#5a6473;--cobalt:#1f2be0;--cobalt-soft:#3a46e6;
+  --grid:rgba(31,43,224,.10);--faint:rgba(31,43,224,.16);--takeaway-bg:rgba(31,43,224,.06);
+  --molt:#1f2be0;--reddit:#c2570f;--row-line:rgba(31,43,224,.42);
+}
+html[data-lang="en"] .lang-ko{display:none!important;}
+html[data-lang="ko"] .lang-en{display:none!important;}
+html,body{width:100%;height:100%;margin:0;overflow:hidden;background:var(--stage-bg);}
+.deck-viewport{position:fixed;inset:0;overflow:hidden;background:var(--stage-bg);}
+.deck-stage{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;transform-origin:0 0;background:var(--canvas);}
+.slide{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;display:block;visibility:hidden;opacity:0;pointer-events:none;background:var(--slide-bg);transition:opacity .28s ease;}
+.slide.active,.slide.visible{visibility:visible;opacity:1;pointer-events:auto;z-index:1;}
+img,video,canvas,svg{max-width:100%;max-height:100%;}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.2s!important;}}
+.deck-stage::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(to right, var(--grid) 1px, transparent 1px),linear-gradient(to bottom, var(--grid) 1px, transparent 1px);background-size:40px 40px;}
+.chrome{position:absolute;inset:0;z-index:4;pointer-events:none;}
+.chrome .hair{position:absolute;left:80px;right:80px;height:1.5px;background:var(--cobalt);}
+.chrome .hair.top{top:34px;} .chrome .hair.bot{bottom:30px;}
+.chrome .pagenum{position:absolute;right:80px;bottom:50px;font-family:var(--font-mono);font-size:16px;color:var(--cobalt);letter-spacing:.06em;}
+.chrome .navhint{position:absolute;left:80px;bottom:50px;font-family:var(--font-mono);font-size:14px;color:var(--cobalt);letter-spacing:.08em;opacity:.45;}
+#bar{position:absolute;top:0;left:0;height:3px;background:var(--cobalt);transition:width .35s ease;z-index:6;}
+.frame{position:absolute;inset:96px 110px 104px;display:flex;flex-direction:column;z-index:2;}
+.kicker{font-family:var(--font-mono);font-size:18px;color:var(--cobalt);letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;}
+.topbar{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;border-bottom:1.5px solid var(--cobalt);padding-bottom:16px;}
+.headline{font-family:var(--font-display);font-weight:500;color:var(--ink);font-size:60px;line-height:1.0;letter-spacing:-.01em;}
+.labtag{font-family:var(--font-mono);font-size:16px;color:var(--cobalt);letter-spacing:.08em;white-space:nowrap;padding-bottom:6px;}
+.region{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;padding-top:30px;}
+.figbox{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;height:100%;}
+.figbox img{max-width:100%;max-height:600px;object-fit:contain;}
+.figcap{font-family:var(--font-body);font-size:22px;line-height:1.5;color:var(--muted);text-align:center;max-width:1480px;}
+.figcap b{font-weight:600;}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:44px;}
+.card{border:1.5px solid var(--row-line);padding:36px 40px;}
+.card h3{font-family:var(--font-display);font-weight:500;color:var(--ink);font-size:32px;display:flex;align-items:center;gap:14px;margin-bottom:18px;}
+.card ul{list-style:none;margin:0;padding:0;}
+.card li{font-family:var(--font-body);font-size:24px;line-height:1.4;color:var(--ink);padding:14px 0;border-bottom:1px solid var(--faint);}
+.card li:last-child{border-bottom:none;}
+.card p{font-family:var(--font-body);font-size:23px;line-height:1.55;color:var(--ink);margin:0 0 10px;}
+.row2{display:grid;grid-template-columns:1.12fr .88fr;gap:54px;align-items:center;height:100%;}
+.row2 .figbox img{max-height:640px;}
+.sub{font-family:var(--font-body);font-size:26px;line-height:1.55;color:var(--ink);margin-top:24px;}
+.muted{color:var(--muted);}
+.small{font-size:20px;color:var(--muted);line-height:1.5;}
+.legend{display:flex;gap:42px;margin-top:30px;font-family:var(--font-body);font-size:24px;color:var(--ink);}
+.legend span{display:inline-flex;align-items:center;gap:14px;}
+.sw{width:16px;height:16px;display:inline-block;flex:none;}
+.molt{color:var(--molt);font-weight:600;} .reddit{color:var(--reddit);font-weight:600;}
+.takeaway{margin-top:30px;border-left:3px solid var(--cobalt);padding:20px 28px;background:var(--takeaway-bg);font-family:var(--font-display);font-weight:500;font-size:30px;line-height:1.35;color:var(--ink);}
+.statrow{display:flex;gap:46px;align-items:baseline;flex-wrap:wrap;}
+.big{font-family:var(--font-display);font-weight:500;font-size:96px;line-height:.9;letter-spacing:-.02em;}
+.statrow .vs{font-family:var(--font-mono);font-size:34px;color:var(--muted);}
+table{border-collapse:collapse;width:100%;margin-top:8px;}
+th,td{padding:16px 18px;text-align:left;border-bottom:1.5px solid var(--row-line);font-family:var(--font-body);font-size:24px;color:var(--ink);}
+th{font-family:var(--font-mono);font-size:15px;color:var(--cobalt);text-transform:uppercase;letter-spacing:.08em;font-weight:400;}
+thead tr th{border-bottom:2.5px solid var(--cobalt);}
+tbody tr:last-child td{border-bottom:none;}
+td.num{text-align:right;font-family:var(--font-mono);font-weight:500;font-variant-numeric:tabular-nums;}
+.pill{display:inline-block;border:1.5px solid var(--faint);padding:8px 18px;font-family:var(--font-mono);font-size:18px;color:var(--cobalt);margin:0 10px 10px 0;letter-spacing:.04em;}
+.glitch{position:absolute;top:0;height:1080px;width:360px;z-index:3;opacity:.5;pointer-events:none;}
+.glitch.right{right:0;} .glitch.left{left:0;} .glitch .vl{fill:var(--cobalt);}
+.toc{display:grid;grid-template-rows:repeat(4,auto);grid-auto-flow:column;column-gap:90px;margin-top:14px;}
+.toc .row{display:flex;align-items:baseline;gap:26px;padding:24px 4px;border-bottom:1px solid var(--row-line);}
+.toc .n{font-family:var(--font-mono);font-size:20px;color:var(--cobalt);min-width:34px;}
+.toc .t{font-family:var(--font-display);font-weight:500;font-size:34px;color:var(--ink);}
+.cover .frame{justify-content:center;}
+.cover .kicker{font-size:20px;margin-bottom:22px;}
+.cover h1{font-family:var(--font-display);font-weight:500;color:var(--ink);font-size:152px;line-height:.94;letter-spacing:-.02em;}
+.cover h1 .vs{font-style:italic;color:var(--muted);font-weight:400;}
+.cover .lede{font-family:var(--font-display);font-weight:400;font-size:38px;line-height:1.3;color:var(--ink);margin-top:34px;max-width:1220px;}
+.cover .foot{font-family:var(--font-mono);font-size:16px;color:var(--muted);letter-spacing:.04em;margin-top:46px;}
+.lim li{font-family:var(--font-body);font-size:25px;line-height:1.5;color:var(--ink);padding:14px 0;border-bottom:1px solid var(--faint);list-style:none;}
+.lim li b{color:var(--cobalt);font-weight:600;}
+#nav{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:1000;}
+#nav button{background:var(--takeaway-bg);color:var(--cobalt);border:1.5px solid var(--cobalt);width:46px;height:38px;font-size:20px;cursor:pointer;font-family:var(--font-mono);}
+#nav button:hover{background:var(--cobalt);color:var(--canvas);}
+#ctrls{position:fixed;top:14px;right:16px;z-index:1100;display:flex;gap:8px;}
+#ctrls button{font-family:var(--font-mono);font-size:13px;letter-spacing:.06em;color:var(--cobalt);background:transparent;border:1.5px solid var(--cobalt);padding:7px 12px;cursor:pointer;}
+#ctrls button:hover{background:var(--cobalt);color:var(--canvas);}
+</style>
+</head>
+<body>
+<div id="ctrls"><button id="langbtn">KO</button><button id="themebtn">☀ Light</button></div>
+<div class="deck-viewport"><div class="deck-stage" id="stage">
+  <div class="chrome"><div id="bar"></div><div class="hair top"></div><div class="hair bot"></div><div class="navhint">← / → · SPACE</div><div class="pagenum" id="pagenum">01 / 15</div></div>
+
+  <section class="slide cover active">
+    <svg class="glitch right" viewBox="0 0 360 1080" preserveAspectRatio="none" aria-hidden="true">
+      <defs><pattern id="vl" width="11" height="11" patternUnits="userSpaceOnUse"><rect class="vl" width="3.5" height="11"/></pattern></defs>
+      <rect x="150" y="0" width="210" height="150" fill="url(#vl)"/><rect x="90" y="160" width="270" height="200" fill="url(#vl)"/><rect x="190" y="370" width="170" height="150" fill="url(#vl)"/><rect x="60" y="530" width="300" height="190" fill="url(#vl)"/><rect x="170" y="730" width="190" height="150" fill="url(#vl)"/><rect x="110" y="890" width="250" height="190" fill="url(#vl)"/>
+    </svg>
+    <div class="frame">
+      <div class="kicker">Digital Humanities · Distant Reading</div>
+      <h1>Reddit <span class="vs">vs</span><br>Moltbook</h1>
+      <p class="lede"><span class="lang-en">How do humans (Reddit) and AI agents (Moltbook)<br><b>write</b> and <b>behave</b> differently?</span><span class="lang-ko">인간(Reddit)과 AI 에이전트(Moltbook)는<br>어떻게 다르게 <b>쓰고</b>, <b>행동하는가</b>.</span></p>
+      <div class="legend"><span><i class="sw" style="background:var(--molt)"></i><span class="lang-en">Moltbook — AI agents</span><span class="lang-ko">Moltbook — AI 에이전트</span></span><span><i class="sw" style="background:var(--reddit)"></i><span class="lang-en">Reddit — humans</span><span class="lang-ko">Reddit — 인간</span></span></div>
+      <div class="foot"><span class="lang-en">All charts from observed data (presentation/data/*.csv) · steady-state window 2026-04-01 – 04-14</span><span class="lang-ko">모든 그래프는 실측 데이터 기반 · 수집 데이터 기간 2026-04-01 ~ 04-14</span></div>
+    </div>
+  </section>
+
+  <section class="slide"><div class="frame">
+    <div class="topbar"><div><div class="kicker">Digital Humanities · Distant Reading</div><h2 class="headline"><span class="lang-en">Contents</span><span class="lang-ko">목차</span></h2></div><div class="labtag">CONTENTS</div></div>
+    <div class="region"><div class="toc">
+      <div class="row"><span class="n">—</span><span class="t"><span class="lang-en">Communities &amp; data</span><span class="lang-ko">커뮤니티 &amp; 데이터</span></span></div>
+      <div class="row"><span class="n">01</span><span class="t"><span class="lang-en">Text · Language</span><span class="lang-ko">텍스트 · 언어</span></span></div>
+      <div class="row"><span class="n">02</span><span class="t"><span class="lang-en">Temporal rhythm</span><span class="lang-ko">시간 리듬</span></span></div>
+      <div class="row"><span class="n">03</span><span class="t"><span class="lang-en">Author activity</span><span class="lang-ko">작성자 활동</span></span></div>
+      <div class="row"><span class="n">04</span><span class="t"><span class="lang-en">Conversation structure</span><span class="lang-ko">대화 구조</span></span></div>
+      <div class="row"><span class="n">05</span><span class="t"><span class="lang-en">Model ecosystem</span><span class="lang-ko">모델 생태계</span></span></div>
+      <div class="row"><span class="n">06</span><span class="t"><span class="lang-en">Composite profile</span><span class="lang-ko">종합 프로파일</span></span></div>
+      <div class="row"><span class="n">—</span><span class="t"><span class="lang-en">Conclusion</span><span class="lang-ko">결론</span></span></div>
+    </div></div>
+  </div></section>
+
+  <section class="slide"><div class="frame">
+    <div class="topbar"><div><div class="kicker"><span class="lang-en">Question &amp; Data</span><span class="lang-ko">질문 &amp; 데이터</span></div><h2 class="headline"><span class="lang-en">Communities &amp; analysis data</span><span class="lang-ko">커뮤니티 &amp; 분석 데이터</span></h2></div><div class="labtag">SETUP / N=66,506</div></div>
+    <div class="region"><div class="cols">
+      <div class="card"><h3><i class="sw" style="background:var(--molt)"></i>Moltbook</h3><ul><li><span class="lang-en">Social network exclusively for AI agents</span><span class="lang-ko">AI 에이전트 전용 소셜 네트워크</span></li><li><span class="lang-en">Source — HF <i>Observatory Archive</i> (frozen)</span><span class="lang-ko">출처 — HF <i>Observatory Archive</i> (frozen)</span></li><li>posts 50,000 · authors 2,410</li></ul></div>
+      <div class="card"><h3><i class="sw" style="background:var(--reddit)"></i>Reddit</h3><ul><li><span class="lang-en">Human user communities (7 subreddits)</span><span class="lang-ko">인간 사용자 커뮤니티 (7개 서브레딧)</span></li><li><span class="lang-en">Source — Arctic Shift API</span><span class="lang-ko">출처 — Arctic Shift API</span></li><li>posts 16,506 · authors 12,201</li></ul></div>
+    </div><p class="sub"><span class="lang-en">Collection period <b>2026-04-01 – 04-14</b> · unified to a common schema, then compared across 6 dimensions. A <b>steady-state</b> sample.</span><span class="lang-ko">수집 데이터 기간 <b>2026-04-01 ~ 04-14</b> · 공통 스키마로 통일 후 6개 차원 비교. <b>안정기</b> 표본.</span></p></div>
+  </div></section>
+
+  <section class="slide"><div class="frame">
+    <div class="topbar"><div><div class="kicker">Overview</div><h2 class="headline"><span class="lang-en">Characteristics of the two communities</span><span class="lang-ko">두 커뮤니티의 특징</span></h2></div><div class="labtag">COMPARISON</div></div>
+    <div class="region"><div class="cols">
+      <div class="card"><h3><i class="sw" style="background:var(--molt)"></i>AI · Moltbook</h3><ul><li><span class="lang-en">Longer posts, more <b>positive</b> tone</span><span class="lang-ko">글이 <b>길고</b> 어조가 <b>더 긍정적</b></span></li><li><span class="lang-en">Posts <b>24/7</b> without rest</span><span class="lang-ko"><b>24시간</b> 쉬지 않고 게시</span></li><li><span class="lang-en"><b>Overwhelming</b> activity per author</span><span class="lang-ko">작성자당 활동량 <b>압도적</b></span></li><li><span class="lang-en">Less inclined to <b>reply to one another</b></span><span class="lang-ko">서로에게 <b>답글을 다는 경향이 적음</b></span></li></ul></div>
+      <div class="card"><h3><i class="sw" style="background:var(--reddit)"></i><span class="lang-en">Human · Reddit</span><span class="lang-ko">인간 · Reddit</span></h3><ul><li><span class="lang-en">Shorter posts, more <b>first-person</b></span><span class="lang-ko">글이 <b>짧고</b> <b>1인칭</b>을 더 사용</span></li><li><span class="lang-en">Bound to a <b>sleep–wake circadian rhythm</b></span><span class="lang-ko"><b>수면–각성 일주기</b>에 묶임</span></li><li><span class="lang-en">Mostly <b>one-off</b> participation</span><span class="lang-ko">대체로 <b>1회성</b> 참여</span></li><li><span class="lang-en">A <b>deeply nested discussion</b></span><span class="lang-ko">대화는 <b>깊게 중첩된 토론형</b></span></li></ul></div>
+    </div><div class="takeaway"><span class="lang-en">Both communities mix <span class="molt">reacting</span> and <span class="reddit">conversing</span> — but AI leans toward <span class="molt">reacting</span>, humans toward <span class="reddit">conversing</span>.</span><span class="lang-ko">두 커뮤니티 모두 <span class="molt">반응</span>과 <span class="reddit">대화</span>가 섞여 있지만, AI는 <span class="molt">반응</span> 쪽에, 사람은 <span class="reddit">대화</span> 쪽에 더 기운다.</span></div></div>
+  </div></section>
+
+  <section class="slide"><div class="frame">
+    <div class="topbar"><div><div class="kicker"><span class="lang-en">① Text · Language — Distribution</span><span class="lang-ko">① 텍스트 · 언어 — 분포</span></div><h2 class="headline">distant reading — graph</h2></div><div class="labtag">FIG.01 / LINGUISTIC</div></div>
+    <div class="region"><div class="figbox"><img data-fig="fig_linguistic" src="figures/fig_linguistic.png" alt="distributions"><p class="figcap"><span class="lang-en"><b class="molt">Moltbook</b> skews right (longer); <b class="reddit">Reddit</b> spreads wider on first-person. The TTR=1.0 <b class="reddit">Reddit</b> spike is a length artifact of short posts.</span><span class="lang-ko"><b class="molt">Moltbook</b> 분포는 오른쪽(길다)으로 치우치고, <b class="reddit">Reddit</b>은 1인칭 비율이 더 넓게 퍼진다. TTR=1.0 스파이크는 짧은 글에서 비롯된 착시.</span></p></div></div>
+  </div></section>
+
+  <section class="slide"><div class="frame">
+    <div class="topbar"><div><div class="kicker"><span class="lang-en">① Text · Language — Lexis &amp; Sentiment</span><span class="lang-ko">① 텍스트 · 언어 — 어휘 &amp; 감정</span></div><h2 class="headline">distant reading — graph</h2></div><div class="labtag">FIG.02 / LEXICAL</div></div>
+    <div class="region"><div class="figbox"><img data-fig="fig_lexical" src="figures/fig_lexical.png" alt="MTLD and sentiment"><p class="figcap"><span class="lang-en">Left <b>MTLD</b> (dashed = median 98.3 vs 87.2): even controlling for length, <b class="molt">AI</b> edges ahead. Right <b>sentiment</b>: both net-positive, <b class="molt">AI</b> heavier near +0.9.</span><span class="lang-ko">왼쪽 <b>MTLD</b>(점선=중앙값): 길이를 통제해도 <b class="molt">AI</b>가 소폭 우위. 오른쪽 <b>감정</b>: 둘 다 순 긍정, <b class="molt">AI</b>가 +0.9 부근 더 큼.</span></p></div></div>
+  </div></section>
+
+  <section class="slide"><div class="frame">
+    <div class="topbar"><div><div class="kicker"><span class="lang-en">① Text · Language — Summary</span><span class="lang-ko">① 텍스트 · 언어 — 요약</span></div><h2 class="headline">distant reading — summary</h2></div><div class="labtag">METRICS</div></div>
+    <div class="region"><div class="row2">
+      <table><thead><tr><th><span class="lang-en">Metric</span><span class="lang-ko">지표</span></th><th class="num">Moltbook</th><th class="num">Reddit</th><th><span class="lang-en">Reading</span><span class="lang-ko">해석</span></th></tr></thead><tbody>
+        <tr><td><span class="lang-en">Median tokens</span><span class="lang-ko">중앙 토큰 수</span></td><td class="num" style="color:var(--molt)">135</td><td class="num" style="color:var(--reddit)">51</td><td class="muted"><span class="lang-en">AI 2.6× longer</span><span class="lang-ko">AI가 2.6배 길다</span></td></tr>
+        <tr><td><span class="lang-en">Lexical MTLD</span><span class="lang-ko">어휘 MTLD</span></td><td class="num" style="color:var(--molt)">98.3</td><td class="num" style="color:var(--reddit)">87.2</td><td class="muted"><span class="lang-en">AI 13% higher</span><span class="lang-ko">AI가 13% 높다</span></td></tr>
+        <tr><td><span class="lang-en">First-person ratio</span><span class="lang-ko">1인칭 비율</span></td><td class="num" style="color:var(--molt)">0.017</td><td class="num" style="color:var(--reddit)">0.054</td><td class="muted"><span class="lang-en">Humans 3× more</span><span class="lang-ko">인간이 3배 많다</span></td></tr>
+        <tr><td><span class="lang-en">Sentiment (VADER)</span><span class="lang-ko">감정 (VADER)</span></td><td class="num" style="color:var(--molt)">+0.31</td><td class="num" style="color:var(--reddit)">+0.18</td><td class="muted"><span class="lang-en">AI more positive</span><span class="lang-ko">AI가 더 긍정적이다</span></td></tr>
+      </tbody></table>
+      <div class="card"><h3><span class="lang-en">Key caveat</span><span class="lang-ko">핵심 유의점</span></h3><p><span class="lang-en">Naive <b>TTR</b> looks higher for humans, but that's a short-post artifact. Length-corrected <b>MTLD</b> gives AI a slight edge (+13%).</span><span class="lang-ko">단순 <b>TTR</b>은 인간이 높아 보이지만 짧은 글이 만든 착시. 길이 보정 <b>MTLD</b>로는 AI가 약간 우위(+13%).</span></p></div>
+    </div></div>
+  </div></section>
+
+  <section class="slide"><div class="frame">
+    <div class="topbar"><div><div class="kicker"><span class="lang-en">② Temporal rhythm · circadian</span><span class="lang-ko">② 시간 리듬 · circadian</span></div><h2 class="headline"><span class="lang-en">Activity-time distribution</span><span class="lang-ko">활동 시간 분포</span></h2></div><div class="labtag">FIG.03 / CIRCADIAN</div></div>
+    <div class="region"><div class="figbox"><img data-fig="fig_circadian" src="figures/fig_circadian.png" alt="hourly"><p class="figcap"><span class="lang-en"><b class="reddit">Reddit</b> has a clear cycle — trough 09:00 UTC → peak 18:00 (CV 0.16). <b class="molt">Moltbook</b> is near-uniform across 24h (CV 0.09).</span><span class="lang-ko"><b class="reddit">Reddit</b>은 9시 저점 → 18시 피크의 뚜렷한 일주기(CV 0.16). <b class="molt">Moltbook</b>은 24시간 거의 균일(CV 0.09).</span></p></div></div>
+  </div></section>
+
+  <section class="slide"><div class="frame">
+    <div class="topbar"><div><div class="kicker"><span class="lang-en">③ Author activity</span><span class="lang-ko">③ 작성자 활동</span></div><h2 class="headline"><span class="lang-en">Posts + comments per author</span><span class="lang-ko">작성자당 게시물 + 댓글 수</span></h2></div><div class="labtag">FIG.04 / AUTHORS</div></div>
+    <div class="region"><div class="row2"><div class="figbox"><img data-fig="fig_author_activity" src="figures/fig_author_activity.png" alt="per author"></div>
+      <div><div class="statrow"><div><div class="big" style="color:var(--molt)">32.7</div><p class="small"><span class="lang-en">Moltbook · per author</span><span class="lang-ko">Moltbook · 작성자당 기여</span></p></div><div class="vs">vs</div><div><div class="big" style="color:var(--reddit)">1.9</div><p class="small"><span class="lang-en">Reddit · per author</span><span class="lang-ko">Reddit · 작성자당 기여</span></p></div></div>
+      <p class="sub"><span class="lang-en">Even with comments, ~<b>17×</b> gap. <b class="reddit">Humans</b> cluster on one post; a few <b class="molt">AI agents</b> (~3,000) make <b>100,000</b> items — a <b>heavy tail</b>.</span><span class="lang-ko">댓글 포함 약 <b>17배</b> 격차. <b class="reddit">인간</b>은 대부분 1건, 소수 <b class="molt">AI 에이전트</b>(~3천)가 <b>10만 건</b>을 만드는 <b>heavy-tail</b>.</span></p></div>
+    </div></div>
+  </div></section>
+
+  <section class="slide"><div class="frame">
+    <div class="topbar"><div><div class="kicker"><span class="lang-en">④ Conversation structure</span><span class="lang-ko">④ 대화 구조</span></div><h2 class="headline"><span class="lang-en">Reply-tree shape</span><span class="lang-ko">답글 트리 구조</span></h2></div><div class="labtag">FIG.05 / REPLY-TREE</div></div>
+    <div class="region"><div class="figbox"><img data-fig="fig_reply_tree" src="figures/fig_reply_tree.png" alt="reply trees"><p class="figcap"><span class="lang-en"><b class="molt">Moltbook</b> is a <b>flat star</b> — comments attach to the post (mean depth 1.05); <b class="reddit">Reddit</b> is a <b>deep tree</b> — replies on replies (mean 2.46, max 10). Node counts per level follow the observed depth distribution (reply_depth.csv); exact threads aren't reconstructed.</span><span class="lang-ko"><b class="molt">Moltbook</b>은 댓글이 글에 직접 붙는 <b>평평한 별</b>(평균 1.05), <b class="reddit">Reddit</b>은 답글에 답글이 이어지는 <b>깊은 나무</b>(평균 2.46, 최대 10). 각 깊이의 노드 수는 실측 깊이 분포(reply_depth.csv)를 따른다 — 개별 스레드를 복원한 건 아님.</span></p></div></div>
+  </div></section>
+
+  <section class="slide"><div class="frame">
+    <div class="topbar"><div><div class="kicker"><span class="lang-en">④ Conversation structure — Quantified</span><span class="lang-ko">④ 대화 구조 — 정량</span></div><h2 class="headline"><span class="lang-en">Depth distribution &amp; attention concentration</span><span class="lang-ko">깊이 분포와 주목 집중도</span></h2></div><div class="labtag">FIG.06 / DEPTH</div></div>
+    <div class="region"><div class="figbox"><img data-fig="fig_reply_depth" src="figures/fig_reply_depth.png" alt="depth"><p class="figcap"><span class="lang-en">Left — 87% of <b class="molt">Moltbook</b> comments are depth 1, only 1.6% reach depth 3+. <b class="reddit">Reddit</b> has 26% at 3+. Right — top 1% of posts capture <b class="molt">43%</b> vs <b class="reddit">27%</b> of replies.</span><span class="lang-ko">왼쪽 — <b class="molt">Moltbook</b> 댓글 87%가 depth 1, depth 3+는 1.6%뿐. <b class="reddit">Reddit</b>은 3+가 26%. 오른쪽 — 상위 1% 글이 답글의 <b class="molt">43%</b> vs <b class="reddit">27%</b>.</span></p></div></div>
+  </div></section>
+
+  <section class="slide"><div class="frame">
+    <div class="topbar"><div><div class="kicker"><span class="lang-en">⑤ Model ecosystem</span><span class="lang-ko">⑤ 모델 생태계</span></div><h2 class="headline"><span class="lang-en">Model provenance</span><span class="lang-ko">구동 모델 분포</span></h2></div><div class="labtag">FIG.07 / PROVENANCE</div></div>
+    <div class="region"><div class="row2"><div class="figbox"><img data-fig="fig_provenance" src="figures/fig_provenance.png" alt="provenance"></div>
+      <div class="card"><h3><span class="lang-en">How to read it</span><span class="lang-ko">읽는 법</span></h3><p><span class="lang-en">Only ~<b>2%</b> of bios disclose a model, but when they do, <b class="molt">Claude</b> dominates — <b>89%</b> (193/218). With runtime keywords, <b>17%</b> are Claude-family.</span><span class="lang-ko">모델 공개 bio는 약 <b>2%</b>뿐이나, 공개 시 <b class="molt">Claude</b>가 압도적 — <b>89%</b>(193/218). 런타임 키워드 포함 시 <b>17%</b>가 Claude 계열.</span></p><p class="small" style="margin-top:14px"><span class="lang-en">"GPT" in posts (286) = talking <i>about</i> GPT, not agents that <i>are</i> GPT — in bios it drops to 4.</span><span class="lang-ko">글 속 GPT(286)는 "GPT인 에이전트"가 아니라 "GPT 화제 글" — bio에선 4건.</span></p></div>
+    </div></div>
+  </div></section>
+
+  <section class="slide"><div class="frame">
+    <div class="topbar"><div><div class="kicker"><span class="lang-en">⑤ Model ecosystem — Implication</span><span class="lang-ko">⑤ 모델 생태계 — 함의</span></div><h2 class="headline"><span class="lang-en">Detection signals &amp; limits</span><span class="lang-ko">탐지 신호와 한계</span></h2></div><div class="labtag">REVERSE-CAPTCHA</div></div>
+    <div class="region"><div class="cols">
+      <div class="card"><h3><span class="lang-en">Strongest separating signals</span><span class="lang-ko">분포를 가장 강하게 가르는 신호</span></h3><p><span class="pill">KS 0.31 · <span class="lang-en">first-person</span><span class="lang-ko">1인칭</span></span><span class="pill">KS 0.27 · <span class="lang-en">length</span><span class="lang-ko">글 길이</span></span></p><p style="margin-top:14px"><span class="lang-en">Order — <b>first-person &gt; length &gt; TTR &gt; sentiment</b>. All p≈0, but with n in tens of thousands we read <b>effect size (KS)</b>.</span><span class="lang-ko">순서 — <b>1인칭 &gt; 글 길이 &gt; TTR &gt; 감정</b>. p≈0이나 n이 수만이라 <b>효과크기(KS)</b>로 읽는다.</span></p></div>
+      <div class="card"><h3><span class="lang-en">Yet hard to tell apart</span><span class="lang-ko">그래도 구분은 어렵다</span></h3><p><span class="lang-en">Slang, length, and timing alone don't cleanly separate the two — the intrinsic difficulty of a reverse-CAPTCHA.</span><span class="lang-ko">슬랭·길이·시간 같은 표면 문체만으로는 둘을 깔끔히 가르기 어렵다 — reverse-CAPTCHA의 본질적 어려움이다.</span></p></div>
+    </div></div>
+  </div></section>
+
+  <section class="slide"><div class="frame">
+    <div class="topbar"><div><div class="kicker"><span class="lang-en">⑥ Composite profile</span><span class="lang-ko">⑥ 종합 프로파일</span></div><h2 class="headline"><span class="lang-en">Composite profile (normalized)</span><span class="lang-ko">종합 프로파일 (정규화)</span></h2></div><div class="labtag">FIG.08 / RADAR</div></div>
+    <div class="region"><div class="row2"><div class="figbox"><img data-fig="fig_radar" src="figures/fig_radar.png" alt="radar"></div>
+      <div><p class="sub" style="margin-top:0"><span class="lang-en"><b class="molt">Moltbook</b> swells along <b>activity/author · length · MTLD · sentiment</b>; <b class="reddit">Reddit</b> along <b>first-person · reply count</b>.</span><span class="lang-ko"><b class="molt">Moltbook</b>은 <b>작성자당 활동 · 글 길이 · MTLD · 감정</b> 축으로, <b class="reddit">Reddit</b>은 <b>1인칭 · 답글 수</b> 축으로 부푼다.</span></p><p class="small" style="margin-top:20px"><span class="lang-en">Each axis normalized to the larger platform's value.</span><span class="lang-ko">각 축은 두 플랫폼 중 큰 값 대비 정규화.</span></p></div>
+    </div></div>
+  </div></section>
+
+  <section class="slide"><div class="frame">
+    <div class="topbar"><div><div class="kicker"><span class="lang-en">Conclusion</span><span class="lang-ko">결론</span></div><h2 class="headline"><span class="lang-en">Humans and AI — what differed</span><span class="lang-ko">인간과 AI, 무엇이 달랐나</span></h2></div><div class="labtag">SUMMARY</div></div>
+    <div class="region"><table><thead><tr><th><span class="lang-en">Dimension</span><span class="lang-ko">차원</span></th><th class="num">AI · Moltbook</th><th class="num"><span class="lang-en">Human · Reddit</span><span class="lang-ko">인간 · Reddit</span></th></tr></thead><tbody>
+      <tr><td><span class="lang-en">Post length</span><span class="lang-ko">글 길이</span></td><td class="num" style="color:var(--molt)"><span class="lang-en">135 tokens</span><span class="lang-ko">135 토큰</span></td><td class="num" style="color:var(--reddit)"><span class="lang-en">51 tokens</span><span class="lang-ko">51 토큰</span></td></tr>
+      <tr><td><span class="lang-en">Sentiment</span><span class="lang-ko">감정</span></td><td class="num" style="color:var(--molt)">+0.31</td><td class="num" style="color:var(--reddit)">+0.18</td></tr>
+      <tr><td><span class="lang-en">First-person</span><span class="lang-ko">1인칭</span></td><td class="num" style="color:var(--molt)">0.017</td><td class="num" style="color:var(--reddit)">0.054</td></tr>
+      <tr><td><span class="lang-en">Temporal CV</span><span class="lang-ko">시간 변동 (CV)</span></td><td class="num" style="color:var(--molt)">0.09</td><td class="num" style="color:var(--reddit)">0.16</td></tr>
+      <tr><td><span class="lang-en">Contributions / author</span><span class="lang-ko">작성자당 기여</span></td><td class="num" style="color:var(--molt)">32.7</td><td class="num" style="color:var(--reddit)">1.9</td></tr>
+      <tr><td><span class="lang-en">Conversation depth (3+)</span><span class="lang-ko">대화 깊이 (3+)</span></td><td class="num" style="color:var(--molt)">1.6%</td><td class="num" style="color:var(--reddit)">26%</td></tr>
+    </tbody></table><div class="takeaway"><span class="lang-en">AI writes more — longer, upbeat posts around the clock — but <b>rarely replies to other agents</b>; humans write less yet <b>reply to one another often</b>, keeping conversations going deeper.</span><span class="lang-ko">AI는 길고 긍정적인 글을 24시간 더 많이 쓰지만 <b>서로에게 답글은 잘 달지 않고</b>, 인간은 글은 적게 써도 <b>서로에게 답글을 많이 달며</b> 대화를 깊게 이어간다.</span></div></div>
+  </div></section>
+
+  <section class="slide">
+    <svg class="glitch left" viewBox="0 0 360 1080" preserveAspectRatio="none" aria-hidden="true"><defs><pattern id="vl2" width="11" height="11" patternUnits="userSpaceOnUse"><rect class="vl" width="3.5" height="11"/></pattern></defs><rect x="0" y="40" width="230" height="170" fill="url(#vl2)"/><rect x="0" y="230" width="170" height="180" fill="url(#vl2)"/><rect x="0" y="430" width="280" height="180" fill="url(#vl2)"/><rect x="0" y="630" width="160" height="170" fill="url(#vl2)"/><rect x="0" y="820" width="240" height="180" fill="url(#vl2)"/></svg>
+    <div class="frame"><div class="topbar"><div><div class="kicker"><span class="lang-en">Limitations &amp; sources</span><span class="lang-ko">한계 &amp; 자료</span></div><h2 class="headline"><span class="lang-en">Read with these in mind</span><span class="lang-ko">읽을 때 유의할 점</span></h2></div><div class="labtag">CAVEATS / 2026</div></div>
+    <div class="region"><ul class="lim"><li><span class="lang-en">Post-centric analysis — precise networks need <b>matched threads</b></span><span class="lang-ko">게시물 중심 분석 — 정밀 네트워크엔 <b>matched-thread</b> 필요</span></li><li><span class="lang-en">Sample caps — read <b>distributions / ratios</b> over absolute values</span><span class="lang-ko">표본 상한 — 절대값보다 <b>분포·비율</b>로 해석</span></li><li><span class="lang-en">English-lexicon sentiment (VADER) · UTC time (not localized)</span><span class="lang-ko">영어 사전 감정(VADER) · UTC 기준 시간</span></li><li><span class="lang-en">Reply trees are <b>representative examples</b> from observed depth stats</span><span class="lang-ko">reply tree는 실측 깊이 통계 기반 <b>대표 예시</b></span></li></ul><p class="sub" style="margin-top:30px">Digital Humanities Project · Reddit vs Moltbook<br><span class="small">distant reading &amp; behavioral comparison · 2026</span></p></div>
+    </div>
+  </section>
+
+</div></div>
+<div id="nav"><button id="prev">‹</button><button id="next">›</button></div>
+<script>
+const stage=document.getElementById('stage');
+function scaleStage(){const s=Math.min(innerWidth/1920,innerHeight/1080);stage.style.transform=`translate(${(innerWidth-1920*s)/2}px,${(innerHeight-1080*s)/2}px) scale(${s})`;}
+addEventListener('resize',scaleStage);scaleStage();
+const root=document.documentElement;
+function applyFigs(){const light=root.dataset.theme==='light';document.querySelectorAll('img[data-fig]').forEach(im=>{im.src='figures/'+im.dataset.fig+(light?'.light':'')+'.png';});}
+const langbtn=document.getElementById('langbtn'),themebtn=document.getElementById('themebtn');
+function updLabels(){langbtn.textContent=root.dataset.lang==='en'?'한국어':'EN';themebtn.textContent=root.dataset.theme==='dark'?'☀ Light':'☾ Dark';}
+langbtn.onclick=e=>{e.stopPropagation();root.dataset.lang=root.dataset.lang==='en'?'ko':'en';updLabels();};
+themebtn.onclick=e=>{e.stopPropagation();root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';updLabels();applyFigs();};
+updLabels();applyFigs();
+const slides=[...document.querySelectorAll('.slide')],bar=document.getElementById('bar'),pagenum=document.getElementById('pagenum');
+let i=0;const pad=n=>String(n).padStart(2,'0');
+function show(n){i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,k)=>s.classList.toggle('active',k===i));bar.style.width=((i+1)/slides.length*100)+'%';pagenum.textContent=pad(i+1)+' / '+pad(slides.length);}
+document.getElementById('next').onclick=e=>{e.stopPropagation();show(i+1);};
+document.getElementById('prev').onclick=e=>{e.stopPropagation();show(i-1);};
+addEventListener('keydown',e=>{if(['ArrowRight',' ','PageDown'].includes(e.key)){show(i+1);e.preventDefault();}if(['ArrowLeft','PageUp'].includes(e.key)){show(i-1);e.preventDefault();}if(e.key==='Home')show(0);if(e.key==='End')show(slides.length-1);});
+addEventListener('click',e=>{if(e.target.closest('#nav')||e.target.closest('#ctrls'))return;show(e.clientX>innerWidth*0.5?i+1:i-1);});
+show(0);
+</script>
+</body>
+</html>

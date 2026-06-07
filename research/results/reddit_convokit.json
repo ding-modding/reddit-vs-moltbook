@@ -1,0 +1,50 @@
+{
+  "id": "reddit_convokit",
+  "name": "ConvoKit (Cornell) Reddit Corpora",
+  "platform": "reddit",
+  "side": "human",
+  "status": "active_frozen",
+  "A_basic": {
+    "data_type": "conversation-structured corpora",
+    "license": "research use; inherits Pushshift/Reddit ToS"
+  },
+  "B_access": {
+    "access_method": "convokit.download('subreddit-<name>')",
+    "auth_required": false,
+    "cost": "free"
+  },
+  "C_schema": {
+    "record_format": "ConvoKit Corpus (JSONL utterances + JSON conversations + speakers + corpus meta)",
+    "top_level_fields": {
+      "Utterance": [
+        "id",
+        "speaker",
+        "conversation_id",
+        "reply_to",
+        "timestamp",
+        "text",
+        "meta: score, top_level_comment, gilded, subreddit, permalink"
+      ]
+    },
+    "time_coverage": "subreddit inception through 2018-10 (built on Pushshift)",
+    "scale": "948,169 subreddit corpora; sample Reddit-small ~297k utterances"
+  },
+  "E_network": {
+    "reply_tree": "first-class abstraction"
+  },
+  "H_dh_usability": {
+    "distant_reading_suitability": 5,
+    "prior_studies": [
+      "Chang et al. 2020 SIGDIAL (toolkit paper)",
+      "Waller & Anderson 2021 Nature (co-participation)",
+      "thousands of CSS papers"
+    ],
+    "known_biases": "frozen 2018-10; English-dominant subreddits over-represented"
+  },
+  "I_agent_prov": "N/A",
+  "evidence_urls": [
+    "https://convokit.cornell.edu/documentation/subreddit.html",
+    "https://github.com/CornellNLP/Cornell-Conversational-Analysis-Toolkit",
+    "https://arxiv.org/abs/2005.04246"
+  ]
+}
