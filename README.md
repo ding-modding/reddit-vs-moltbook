@@ -1,4 +1,4 @@
-# DH Project — Reddit vs Moltbook 비교 연구
+# reddit-vs-moltbook — Reddit vs Moltbook 비교 연구
 
 > Digital Humanities 연구: **인간(Reddit) vs AI 에이전트(Moltbook)** 데이터는 어떻게 다른가?
 > Distant reading + 행동 비교 분석 파이프라인.
@@ -6,7 +6,7 @@
 ## 폴더 구조
 
 ```
-DH-Project/
+reddit-vs-moltbook/
 ├── README.md                  ← 이 파일 (실행 안내)
 ├── requirements.txt           ← 로컬 실행용 의존성
 ├── .gitignore
@@ -36,7 +36,7 @@ DH-Project/
 ### A. 로컬 (Jupyter)
 
 ```bash
-cd DH-Project                                        # 저장소 루트로 이동
+cd reddit-vs-moltbook                                # 저장소 루트로 이동
 python -m venv .venv && .venv\Scripts\activate      # (선택) 가상환경
 pip install -r requirements.txt
 python -m spacy download en_core_web_sm
